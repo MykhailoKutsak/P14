@@ -1,0 +1,123 @@
+#include <iostream>
+#include <string>
+
+// Task 1
+void processEvenOdd(int* arr, int size) {
+    int evenSum = 0, evenCount = 0;
+    int oddSum = 0, oddCount = 0;
+
+    // Вказівник на ел 1
+    int* ptr = arr;
+
+    // Цикл працює поки вказівник не вийде за межі масиву
+    for (int i = 0; i < size; ++i) {
+        if (*ptr % 2 == 0) {
+            evenSum += *ptr;
+            evenCount++;
+        } else {
+            oddSum += *ptr;
+            oddCount++;
+        }
+        ptr++; // Переміщ вказівник на наступний ел
+    }
+
+    std::cout << "task 1 result\n";
+    if (evenCount > 0) {
+        std::cout << "Average of even elements: " << (double)evenSum / evenCount << "\n";
+    } else {
+        std::cout << "No even elements found.\n";
+    }
+
+    if (oddCount > 0) {
+        std::cout << "Average of odd elements: " << (double)oddSum / oddCount << "\n";
+    } else {
+        std::cout << "No odd elements found.\n";
+    }
+    std::cout << "\n";
+}
+
+
+// Task 2
+void findMinMaxStrings(std::string* arr, int size) {
+    // Ініціаліз вказівники найкоротший та найдовший рядки 
+    std::string* minPtr = arr;
+    std::string* maxPtr = arr;
+
+    std::string* currentPtr = arr;
+
+    for (int i = 0; i < size; ++i) {
+        // Порівнюємо довж рядка
+        if (currentPtr->length() < minPtr->length()) {
+            minPtr = currentPtr;
+        }
+        if (currentPtr->length() > maxPtr->length()) {
+            maxPtr = currentPtr;
+        }
+        currentPtr++;
+    }
+
+    std::cout << "task 2 result\n";
+    std::cout << "Shortest string: \"" << *minPtr << "\" (Size: " << minPtr->length() << ")\n";
+    std::cout << "Longest string: \"" << *maxPtr << "\" (Size: " << maxPtr->length() << ")\n";
+    std::cout << "\n";
+}
+
+// Task 3
+void sumReverseFloats(float* arr, int size) {
+    float sum = 0.0f;
+
+    // Встановлюємо вказівник на останній ел масиву
+    float* ptr = arr + (size - 1);
+    
+    for (int i = 0; i < size; ++i) {
+        sum += *ptr;
+        ptr--;
+    }
+
+    std::cout << "task 3\n";
+    std::cout << "Sum of elements (calculated in reverse): " << sum << "\n";
+    std::cout << "\n";
+}
+
+// Main
+int main() {
+    int intSize;
+    std::cout << "Enter size for integer array: ";
+    std::cin >> intSize;
+
+    int* intArr = new int[intSize];
+    std::cout << "Enter " << intSize << " integers:\n";
+    for (int i = 0; i < intSize; ++i) {
+        std::cin >> *(intArr + i);
+    }
+    processEvenOdd(intArr, intSize);
+    delete[] intArr;
+
+
+    int stringSize;
+    std::cout << "Enter size for string array: ";
+    std::cin >> stringSize;
+    std::cin.ignore();
+
+    std::string* stringArr = new std::string[stringSize];
+    std::cout << "Enter " << stringSize << " strings:\n";
+    for (int i = 0; i < stringSize; ++i) {
+        std::getline(std::cin, *(stringArr + i));
+    }
+    findMinMaxStrings(stringArr, stringSize);
+    delete[] stringArr;
+    
+    int floatSize;
+    std::cout << "Enter size for float array: ";
+    std::cin >> floatSize;
+
+    float* floatArr = new float[floatSize];
+    std::cout << "Enter " << floatSize << " float numbers:\n";
+    for (int i = 0; i < floatSize; ++i) {
+        std::cin >> *(floatArr + i);
+    }
+    sumReverseFloats(floatArr, floatSize);
+    delete[] floatArr;
+
+    return 0;
+}
